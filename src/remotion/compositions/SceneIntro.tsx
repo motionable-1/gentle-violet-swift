@@ -54,8 +54,8 @@ export const SceneIntro: React.FC = () => {
     easing: Easing.inOut(Easing.cubic),
   });
 
-  // Y position: starts centered (0), moves up to logo position
-  const markY = interpolate(frame, [55, 78], [0, -190], {
+  // Y position: starts centered (0), moves up slightly into logo row
+  const markY = interpolate(frame, [55, 78], [0, -20], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
     easing: Easing.inOut(Easing.cubic),
@@ -128,109 +128,118 @@ export const SceneIntro: React.FC = () => {
         justifyContent: "center",
       }}
     >
-      {/* Brand mark — starts centered, then shrinks up into logo row */}
+      {/* Centered content group — nudged up slightly for optical center */}
       <div
         style={{
-          opacity: markCenteredOpacity,
-          transform: `translateY(${markY}px) scale(${markScale})`,
           display: "flex",
+          flexDirection: "column",
           alignItems: "center",
-          gap: 16,
-          marginBottom: 40,
+          marginTop: -10,
         }}
       >
-        <BrandReveal size={140} />
-
-        {/* Wordmark (appears after mark shrinks) */}
+        {/* Brand mark — starts centered, then shrinks up into logo row */}
         <div
           style={{
-            opacity: wordmarkOpacity,
-            transform: `translateX(${wordmarkX}px)`,
-          }}
-        >
-          <Img src={LOGO_URL} style={{ width: 180, height: "auto" }} />
-        </div>
-      </div>
-
-      {/* Headline */}
-      <div
-        style={{
-          textAlign: "center",
-          marginBottom: 20,
-          opacity: frame >= headlineDelay ? 1 : 0,
-        }}
-      >
-        <BlurReveal
-          stagger={0.04}
-          duration={0.6}
-          startFrom={headlineDelay}
-          className="text-balance"
-          style={{
-            fontFamily: garamond,
-            fontSize: 82,
-            fontWeight: 700,
-            color: "#1A1A1A",
-            lineHeight: 1.1,
-            letterSpacing: "-0.02em",
-          }}
-        >
-          Don&apos;t type, just speak
-        </BlurReveal>
-      </div>
-
-      {/* Subtitle */}
-      <div
-        style={{
-          opacity: subtitleOpacity,
-          transform: `translateY(${subtitleY}px)`,
-          textAlign: "center",
-          maxWidth: 700,
-        }}
-      >
-        <FadeInWords
-          stagger={0.06}
-          duration={0.5}
-          startFrom={subtitleDelay}
-          style={{
-            fontFamily: figtree,
-            fontSize: 26,
-            fontWeight: 400,
-            color: "#1A1A1A",
-            opacity: 0.7,
-            lineHeight: 1.5,
-          }}
-        >
-          AI-powered voice dictation that transforms your speech into polished
-          writing
-        </FadeInWords>
-      </div>
-
-      {/* Funding badge */}
-      <div
-        style={{
-          position: "absolute",
-          bottom: 80,
-          opacity: badgeOpacity,
-          transform: `scale(${Math.max(0, badgeScale)})`,
-        }}
-      >
-        <div
-          style={{
+            opacity: markCenteredOpacity,
+            transform: `translateY(${markY}px) scale(${markScale})`,
             display: "flex",
             alignItems: "center",
-            gap: 10,
-            background: "#034F46",
-            color: "#FFFFEB",
-            fontFamily: figtree,
-            fontSize: 16,
-            fontWeight: 600,
-            padding: "10px 24px",
-            borderRadius: 50,
-            letterSpacing: "0.02em",
+            gap: 16,
+            marginBottom: 32,
           }}
         >
-          <span style={{ fontSize: 20 }}>🚀</span>
-          <span>$81M Raised — Backed by Top Investors</span>
+          <BrandReveal size={140} />
+
+          {/* Wordmark (appears after mark shrinks) */}
+          <div
+            style={{
+              opacity: wordmarkOpacity,
+              transform: `translateX(${wordmarkX}px)`,
+            }}
+          >
+            <Img src={LOGO_URL} style={{ width: 180, height: "auto" }} />
+          </div>
+        </div>
+
+        {/* Headline */}
+        <div
+          style={{
+            textAlign: "center",
+            marginBottom: 20,
+            opacity: frame >= headlineDelay ? 1 : 0,
+          }}
+        >
+          <BlurReveal
+            stagger={0.04}
+            duration={0.6}
+            startFrom={headlineDelay}
+            className="text-balance"
+            style={{
+              fontFamily: garamond,
+              fontSize: 82,
+              fontWeight: 700,
+              color: "#1A1A1A",
+              lineHeight: 1.1,
+              letterSpacing: "-0.02em",
+            }}
+          >
+            Don&apos;t type, just speak
+          </BlurReveal>
+        </div>
+
+        {/* Subtitle */}
+        <div
+          style={{
+            opacity: subtitleOpacity,
+            transform: `translateY(${subtitleY}px)`,
+            textAlign: "center",
+            maxWidth: 700,
+          }}
+        >
+          <FadeInWords
+            stagger={0.06}
+            duration={0.5}
+            startFrom={subtitleDelay}
+            style={{
+              fontFamily: figtree,
+              fontSize: 26,
+              fontWeight: 400,
+              color: "#1A1A1A",
+              opacity: 0.7,
+              lineHeight: 1.5,
+            }}
+          >
+            AI-powered voice dictation that transforms your speech into polished
+            writing
+          </FadeInWords>
+        </div>
+
+        {/* Funding badge */}
+        <div
+          style={{
+            marginTop: 40,
+            opacity: badgeOpacity,
+            transform: `scale(${Math.max(0, badgeScale)})`,
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 10,
+              background: "#034F46",
+              color: "#FFFFEB",
+              fontFamily: figtree,
+              fontSize: 16,
+              fontWeight: 600,
+              padding: "10px 24px",
+              borderRadius: 50,
+              letterSpacing: "0.02em",
+            }}
+          >
+            <span style={{ fontSize: 20 }}>🚀</span>
+            <span>$81M Raised — Backed by Top Investors</span>
+          </div>
         </div>
       </div>
     </div>
