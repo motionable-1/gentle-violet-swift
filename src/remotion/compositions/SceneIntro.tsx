@@ -13,7 +13,6 @@ import {
 } from "../library/components/text/TextAnimation";
 import { loadFont as loadEbGaramond } from "@remotion/google-fonts/EBGaramond";
 import { loadFont as loadFigtree } from "@remotion/google-fonts/Figtree";
-import { ShapeAnimation } from "../library/components/effects/ShapeAnimation";
 
 const LOGO_URL =
   "https://pub-e3bfc0083b0644b296a7080b21024c5f.r2.dev/wispr-flow/1773904288024_3y4k6f81fv5_wispr_flow_logo.svg";
@@ -32,41 +31,52 @@ export const SceneIntro: React.FC = () => {
   const { fps } = useVideoConfig();
 
   // Logo entrance
-  const logoScale = spring({ frame, fps, config: { damping: 12, stiffness: 80 }, durationInFrames: 40 });
-  const logoOpacity = interpolate(frame, [0, 20], [0, 1], { extrapolateRight: "clamp" });
+  const logoScale = spring({
+    frame,
+    fps,
+    config: { damping: 12, stiffness: 80 },
+    durationInFrames: 40,
+  });
+  const logoOpacity = interpolate(frame, [0, 20], [0, 1], {
+    extrapolateRight: "clamp",
+  });
 
   // Tagline entrance delay
   const taglineDelay = 25;
 
   // Subtitle entrance delay
   const subtitleDelay = 50;
-  const subtitleOpacity = interpolate(frame, [subtitleDelay, subtitleDelay + 20], [0, 1], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-  });
-  const subtitleY = interpolate(frame, [subtitleDelay, subtitleDelay + 25], [30, 0], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-    easing: Easing.out(Easing.cubic),
-  });
-
-  // Decorative shapes
-  const shape1Opacity = interpolate(frame, [15, 35], [0, 0.3], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-  });
-  const shape2Opacity = interpolate(frame, [30, 50], [0, 0.25], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-  });
+  const subtitleOpacity = interpolate(
+    frame,
+    [subtitleDelay, subtitleDelay + 20],
+    [0, 1],
+    { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
+  );
+  const subtitleY = interpolate(
+    frame,
+    [subtitleDelay, subtitleDelay + 25],
+    [30, 0],
+    {
+      extrapolateLeft: "clamp",
+      extrapolateRight: "clamp",
+      easing: Easing.out(Easing.cubic),
+    }
+  );
 
   // Funding badge
   const badgeDelay = 70;
-  const badgeScale = spring({ frame: frame - badgeDelay, fps, config: { damping: 14, stiffness: 100 }, durationInFrames: 30 });
-  const badgeOpacity = interpolate(frame, [badgeDelay, badgeDelay + 15], [0, 1], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
+  const badgeScale = spring({
+    frame: frame - badgeDelay,
+    fps,
+    config: { damping: 14, stiffness: 100 },
+    durationInFrames: 30,
   });
+  const badgeOpacity = interpolate(
+    frame,
+    [badgeDelay, badgeDelay + 15],
+    [0, 1],
+    { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
+  );
 
   return (
     <div
@@ -79,42 +89,6 @@ export const SceneIntro: React.FC = () => {
         justifyContent: "center",
       }}
     >
-      {/* Decorative floating shapes */}
-      <div
-        style={{
-          position: "absolute",
-          top: 120,
-          right: 200,
-          opacity: shape1Opacity,
-          transform: `rotate(${frame * 0.5}deg)`,
-        }}
-      >
-        <ShapeAnimation shape="ring" color="#034F46" size={80} strokeColor="#034F46" strokeWidth={2} animation="breathe" speed={0.3} />
-      </div>
-
-      <div
-        style={{
-          position: "absolute",
-          bottom: 180,
-          left: 220,
-          opacity: shape2Opacity,
-          transform: `rotate(${-frame * 0.3}deg)`,
-        }}
-      >
-        <ShapeAnimation shape="diamond" color="#F0D7FF" size={50} animation="breathe" speed={0.4} />
-      </div>
-
-      <div
-        style={{
-          position: "absolute",
-          top: 250,
-          left: 300,
-          opacity: shape1Opacity * 0.6,
-        }}
-      >
-        <ShapeAnimation shape="circle" color="#034F46" size={20} animation="pulse" speed={0.5} />
-      </div>
-
       {/* Logo */}
       <div
         style={{
@@ -142,7 +116,7 @@ export const SceneIntro: React.FC = () => {
             letterSpacing: "-0.02em",
           }}
         >
-          Don't type, just speak
+          Don&apos;t type, just speak
         </BlurReveal>
       </div>
 
@@ -168,7 +142,8 @@ export const SceneIntro: React.FC = () => {
             lineHeight: 1.5,
           }}
         >
-          AI-powered voice dictation that transforms your speech into polished writing
+          AI-powered voice dictation that transforms your speech into polished
+          writing
         </FadeInWords>
       </div>
 

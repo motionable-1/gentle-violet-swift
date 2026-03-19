@@ -6,12 +6,9 @@ import {
   spring,
   Easing,
 } from "remotion";
-import {
-  BlurReveal,
-} from "../library/components/text/TextAnimation";
+import { BlurReveal } from "../library/components/text/TextAnimation";
 import { loadFont as loadEbGaramond } from "@remotion/google-fonts/EBGaramond";
 import { loadFont as loadFigtree } from "@remotion/google-fonts/Figtree";
-import { ShapeAnimation } from "../library/components/effects/ShapeAnimation";
 
 const { fontFamily: garamond } = loadEbGaramond("normal", {
   weights: ["400", "700"],
@@ -47,7 +44,7 @@ const FillerWord: React.FC<{
     }
   );
 
-  const width = interpolate(removeProgress, [0, 1], [1, 0]);
+  const scaleX = interpolate(removeProgress, [0, 1], [1, 0]);
   const opacity = interpolate(removeProgress, [0, 0.8, 1], [1, 0.5, 0]);
 
   return (
@@ -57,7 +54,7 @@ const FillerWord: React.FC<{
         position: "relative",
         color: "#E74C3C",
         opacity,
-        transform: `scaleX(${width})`,
+        transform: `scaleX(${scaleX})`,
         transformOrigin: "center",
         fontWeight: 600,
       }}
@@ -82,12 +79,6 @@ const FillerWord: React.FC<{
 export const SceneTextPolish: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
-
-  // Shape decorations
-  const shapeOpacity = interpolate(frame, [10, 30], [0, 0.2], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-  });
 
   // Before/After card timing
   const beforeDelay = 40;
@@ -142,7 +133,7 @@ export const SceneTextPolish: React.FC = () => {
     { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
   );
 
-  // Arrow animation between cards
+  // Arrow
   const arrowDelay = 90;
   const arrowOpacity = interpolate(
     frame,
@@ -173,47 +164,11 @@ export const SceneTextPolish: React.FC = () => {
         padding: "60px 100px",
       }}
     >
-      {/* Decorative shapes */}
-      <div
-        style={{
-          position: "absolute",
-          top: 80,
-          right: 120,
-          opacity: shapeOpacity,
-        }}
-      >
-        <ShapeAnimation
-          shape="star"
-          color="#F0D7FF"
-          size={35}
-          animation="rotate"
-          speed={0.2}
-        />
-      </div>
-      <div
-        style={{
-          position: "absolute",
-          bottom: 120,
-          left: 100,
-          opacity: shapeOpacity * 0.7,
-        }}
-      >
-        <ShapeAnimation
-          shape="ring"
-          color="#034F46"
-          size={45}
-          strokeColor="#034F46"
-          strokeWidth={2}
-          animation="breathe"
-          speed={0.3}
-        />
-      </div>
-
       {/* Section header */}
       <div
         style={{
           textAlign: "center",
-          marginBottom: 16,
+          marginBottom: 12,
           opacity: frame >= 0 ? 1 : 0,
         }}
       >
@@ -277,7 +232,7 @@ export const SceneTextPolish: React.FC = () => {
             transform: `translateY(${beforeY}px)`,
             flex: 1,
             maxWidth: 460,
-            background: "rgba(255,255,235,0.95)",
+            background: "rgba(255,255,235,0.92)",
             border: "2px solid rgba(231,76,60,0.2)",
             borderRadius: 16,
             padding: "24px 28px",
@@ -356,7 +311,7 @@ export const SceneTextPolish: React.FC = () => {
             transform: `translateY(${afterY}px)`,
             flex: 1,
             maxWidth: 460,
-            background: "rgba(255,255,235,0.95)",
+            background: "rgba(255,255,235,0.92)",
             border: "2px solid rgba(3,79,70,0.2)",
             borderRadius: 16,
             padding: "24px 28px",

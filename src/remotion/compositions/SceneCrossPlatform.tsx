@@ -12,8 +12,6 @@ import {
 } from "../library/components/text/TextAnimation";
 import { loadFont as loadEbGaramond } from "@remotion/google-fonts/EBGaramond";
 import { loadFont as loadFigtree } from "@remotion/google-fonts/Figtree";
-import { ShapeAnimation } from "../library/components/effects/ShapeAnimation";
-import { AnimatedGlow } from "../library/components/effects/Glow";
 
 const { fontFamily: garamond } = loadEbGaramond("normal", {
   weights: ["400", "700"],
@@ -61,7 +59,7 @@ const PlatformCard: React.FC<{
     extrapolateRight: "clamp",
   });
 
-  // Floating hover
+  // Subtle float
   const hoverY = Math.sin((frame - delay) / 25 + index * 1.2) * 4;
 
   return (
@@ -75,31 +73,21 @@ const PlatformCard: React.FC<{
         gap: 16,
       }}
     >
-      <AnimatedGlow
-        color="#034F46"
-        intensity={12}
-        duration={0.5}
-        delay={delay / fps}
-        pulsateAfter
-        pulseDuration={3}
-        pulseMin={0.4}
+      <div
+        style={{
+          width: 110,
+          height: 110,
+          borderRadius: 24,
+          background: "rgba(255,255,235,0.95)",
+          border: "2px solid rgba(3,79,70,0.12)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          boxShadow: "0 10px 28px rgba(0,0,0,0.07)",
+        }}
       >
-        <div
-          style={{
-            width: 110,
-            height: 110,
-            borderRadius: 24,
-            background: "rgba(255,255,235,0.95)",
-            border: "2px solid rgba(3,79,70,0.15)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            boxShadow: "0 12px 30px rgba(0,0,0,0.08)",
-          }}
-        >
-          <Img src={platform.icon} style={{ width: 48, height: 48 }} />
-        </div>
-      </AnimatedGlow>
+        <Img src={platform.icon} style={{ width: 48, height: 48 }} />
+      </div>
       <span
         style={{
           fontFamily: figtree,
@@ -118,12 +106,6 @@ const PlatformCard: React.FC<{
 export const SceneCrossPlatform: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
-
-  // Decorations
-  const shapeOpacity = interpolate(frame, [10, 30], [0, 0.2], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-  });
 
   // Languages badge
   const langDelay = 130;
@@ -152,41 +134,6 @@ export const SceneCrossPlatform: React.FC = () => {
         padding: "60px 100px",
       }}
     >
-      {/* Decorative shapes */}
-      <div
-        style={{
-          position: "absolute",
-          top: 100,
-          left: 180,
-          opacity: shapeOpacity,
-        }}
-      >
-        <ShapeAnimation
-          shape="triangle"
-          color="#F0D7FF"
-          size={35}
-          animation="rotate"
-          speed={0.1}
-        />
-      </div>
-      <div
-        style={{
-          position: "absolute",
-          bottom: 130,
-          right: 200,
-          opacity: shapeOpacity * 0.6,
-          transform: `rotate(${frame * 0.3}deg)`,
-        }}
-      >
-        <ShapeAnimation
-          shape="cross"
-          color="#034F46"
-          size={25}
-          animation="breathe"
-          speed={0.4}
-        />
-      </div>
-
       {/* Header */}
       <div
         style={{
@@ -258,7 +205,8 @@ export const SceneCrossPlatform: React.FC = () => {
             lineHeight: 1.5,
           }}
         >
-          One voice, every platform. Dictate seamlessly across all your devices and apps.
+          One voice, every platform. Dictate seamlessly across all your devices
+          and apps.
         </FadeInWords>
       </div>
 

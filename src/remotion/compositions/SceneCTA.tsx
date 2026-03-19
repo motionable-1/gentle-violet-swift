@@ -13,7 +13,6 @@ import {
 } from "../library/components/text/TextAnimation";
 import { loadFont as loadEbGaramond } from "@remotion/google-fonts/EBGaramond";
 import { loadFont as loadFigtree } from "@remotion/google-fonts/Figtree";
-import { ShapeAnimation } from "../library/components/effects/ShapeAnimation";
 
 const LOGO_URL =
   "https://pub-e3bfc0083b0644b296a7080b21024c5f.r2.dev/wispr-flow/1773904288024_3y4k6f81fv5_wispr_flow_logo.svg";
@@ -32,14 +31,13 @@ export const SceneCTA: React.FC = () => {
   const { fps } = useVideoConfig();
 
   // Logo
-  const logoDelay = 0;
   const logoScale = spring({
-    frame: frame - logoDelay,
+    frame,
     fps,
     config: { damping: 12, stiffness: 80 },
     durationInFrames: 40,
   });
-  const logoOpacity = interpolate(frame, [logoDelay, logoDelay + 20], [0, 1], {
+  const logoOpacity = interpolate(frame, [0, 20], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
@@ -63,21 +61,10 @@ export const SceneCTA: React.FC = () => {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
-  const urlY = interpolate(
-    frame,
-    [urlDelay, urlDelay + 25],
-    [20, 0],
-    {
-      extrapolateLeft: "clamp",
-      extrapolateRight: "clamp",
-      easing: Easing.out(Easing.cubic),
-    }
-  );
-
-  // Decorative shapes
-  const shapeOpacity = interpolate(frame, [10, 30], [0, 0.25], {
+  const urlY = interpolate(frame, [urlDelay, urlDelay + 25], [20, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
+    easing: Easing.out(Easing.cubic),
   });
 
   // Ambient button pulse
@@ -95,75 +82,6 @@ export const SceneCTA: React.FC = () => {
         padding: "60px 100px",
       }}
     >
-      {/* Decorative shapes */}
-      <div
-        style={{
-          position: "absolute",
-          top: 120,
-          left: 260,
-          opacity: shapeOpacity,
-        }}
-      >
-        <ShapeAnimation
-          shape="diamond"
-          color="#F0D7FF"
-          size={50}
-          animation="breathe"
-          speed={0.3}
-        />
-      </div>
-      <div
-        style={{
-          position: "absolute",
-          bottom: 140,
-          right: 280,
-          opacity: shapeOpacity * 0.7,
-          transform: `rotate(${frame * 0.4}deg)`,
-        }}
-      >
-        <ShapeAnimation
-          shape="hexagon"
-          color="#034F46"
-          size={40}
-          animation="rotate"
-          speed={0.15}
-        />
-      </div>
-      <div
-        style={{
-          position: "absolute",
-          top: 200,
-          right: 320,
-          opacity: shapeOpacity * 0.5,
-        }}
-      >
-        <ShapeAnimation
-          shape="circle"
-          color="#034F46"
-          size={14}
-          animation="pulse"
-          speed={0.6}
-        />
-      </div>
-      <div
-        style={{
-          position: "absolute",
-          bottom: 200,
-          left: 340,
-          opacity: shapeOpacity * 0.4,
-        }}
-      >
-        <ShapeAnimation
-          shape="ring"
-          color="#F0D7FF"
-          size={55}
-          strokeColor="#F0D7FF"
-          strokeWidth={2}
-          animation="breathe"
-          speed={0.25}
-        />
-      </div>
-
       {/* Logo */}
       <div
         style={{
